@@ -60,10 +60,11 @@ export class ActivityComponent implements OnInit {
   onSubmit() {
     const formData = new FormData();
     formData.append('filename', this.fileForm.get('profile').value);
-
-    this.innosysApiService.importActivityByCsv(formData).subscribe(
-      (res) => console.log(res),
-      (err) => console.log(err)
-    );
+    if (this.fileForm.get('profile').value !== '') {
+      this.innosysApiService.importActivityByCsv(formData).subscribe(
+        (res) => window.location.reload(),
+        (err) => console.log(err)
+      );
+    }
   }
 }

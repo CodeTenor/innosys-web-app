@@ -5,43 +5,33 @@
 
     <div class="w3-row-padding">
         <div class="w3-half w3-margin-bottom">
-            <!-- <button class="button import-button" style="margin-right: 10px;">Import Activities</button> -->
             <form [formGroup]="fileForm" (ngSubmit)="onSubmit()">
                 <div>
                     <input type="file" name="profile" (change)="onFileSelect($event)" />
                 </div>
                 <div>
-                    <button type="submit">Upload</button>
+                    <button type="submit" class="button import-button">Upload</button>
                 </div>
             </form>
-            <!-- <form [formGroup]="fileForm" (ngSubmit)="uploadActivityCsv()" name="form">
-                <div class="form-group">
-                    <input type="file" placeholder="Search Book" formControlName="file">
-                    <input type="submit" class="button import-button">
-                </div>
-                <div class="form-group">
-                    <button type="submit" class="button import-button" style="margin-left:5px">Search</button>
-                </div>
-            </form> -->
 
             <button class="button export-button" (click)="exportActivityScript()">Export Activities</button>
         </div>
     </div>
 
     <div *ngIf="!loading" class="w3-row-padding">
-        <div class="w3-half" style="text-align: center;">
+        <div class="w3-half" style="text-align: left;">
             <div class="row-3">
                 <div *ngFor="let activity of activites" class="card col" style="padding-bottom: 10px;">
-                    <!-- <button type="button" data-toggle="modal" data-target="#myModal" (click)="openModal(activity)"> -->
                     <div class="container" style="background-color: #89CFF0;">
-                        <h4><b>{{activity.client}}</b></h4>
-                        <p>Description: {{activity.description}}</p>
+                        <h4 style="text-align: center;"><b>{{activity.client}}</b></h4>
+                        <p><b>Description</b>: {{activity.description}}</p>
+                        <p><b>Start Date</b>: {{activity.startDate | date: 'medium'}}</p>
+                        <p><b>Due Date</b>: {{activity.dueDate | date: 'medium'}}</p>
                         <div *ngFor="let task of activity.tasks; let i = index">
                             <i class="glyphicon glyphicon-home"></i>
-                            <p>Task {{i + 1}}: {{task.description}}</p>
+                            <p><b>Task {{i + 1}}</b>: {{task.description}}</p>
                         </div>
                     </div>
-                    <!-- </button> -->
                 </div>
             </div>
         </div>
@@ -52,22 +42,3 @@
 <div *ngIf="loading" class="relative">
     <app-spinner></app-spinner>
 </div>
-
-<!-- <div id="myModal" class="modal fade" role="dialog">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Tasks</h4>
-            </div>
-            <div class="modal-body">
-                <div *ngFor="let task of this.selectedActvitity.tasks"></div>
-
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            </div>
-        </div>
-
-    </div>
-</div> -->
