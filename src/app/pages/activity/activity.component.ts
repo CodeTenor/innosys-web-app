@@ -3,6 +3,9 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { Activity } from 'src/app/_models/activity';
 import { ActivityAdaptor } from 'src/app/_models/activity-adaptor';
 import { InnosysApiService } from 'src/app/_services/innosys-api.service';
+import {
+  saveAs as importedSaveAs
+} from "file-saver";
 
 @Component({
   selector: 'app-activity',
@@ -20,10 +23,9 @@ export class ActivityComponent implements OnInit {
   constructor(private innosysApiService: InnosysApiService,
               private activityAdaptor: ActivityAdaptor,
               private formbuilder: FormBuilder) {
-    this.fileForm = formbuilder.group({
-      file: new FormControl(null, [Validators.required]),
-    }
-    );
+      this.fileForm = this.formbuilder.group({
+        profile: ['']
+      });
   }
 
   ngOnInit(): void {
@@ -40,10 +42,28 @@ export class ActivityComponent implements OnInit {
   }
 
   exportActivityScript() {
-    window.open("https://localhost:44324/api/activity/export")
+    this.innosysApiService.exportActivityScript().subscribe(
+      result => {
+         const newBlob = new Blob([(result)], { type: 'application/sql' });
+        importedSaveAs(newBlob, "script.sql");
+      }
+    );
   }
 
-  uploadActivityCsv() {
+  onFileSelect(event) {
+    if (event.target.files.length > 0) {
+      const file = event.target.files[0];
+      this.fileForm.get('profile').setValue(file);
+    }
+  }
 
+  onSubmit() {
+    const formData = new FormData();
+    formData.append('filename', this.fileForm.get('profile').value);
+
+    this.innosysApiService.importActivityByCsv(formData).subscribe(
+      (res) => console.log(res),
+      (err) => console.log(err)
+    );
   }
 }

@@ -6,19 +6,23 @@
     <div class="w3-row-padding">
         <div class="w3-half w3-margin-bottom">
             <!-- <button class="button import-button" style="margin-right: 10px;">Import Activities</button> -->
-            <!-- <form action="/action_page.php">
-              <input type="file" id="myFile" name="filename">
-              <input type="submit">
-            </form> -->
-            <form [formGroup]="fileForm" (ngSubmit)="uploadActivityCsv()" name="form">
+            <form [formGroup]="fileForm" (ngSubmit)="onSubmit()">
+                <div>
+                    <input type="file" name="profile" (change)="onFileSelect($event)" />
+                </div>
+                <div>
+                    <button type="submit">Upload</button>
+                </div>
+            </form>
+            <!-- <form [formGroup]="fileForm" (ngSubmit)="uploadActivityCsv()" name="form">
                 <div class="form-group">
                     <input type="file" placeholder="Search Book" formControlName="file">
                     <input type="submit" class="button import-button">
                 </div>
-                <!-- <div class="form-group">
+                <div class="form-group">
                     <button type="submit" class="button import-button" style="margin-left:5px">Search</button>
-                </div> -->
-            </form>
+                </div>
+            </form> -->
 
             <button class="button export-button" (click)="exportActivityScript()">Export Activities</button>
         </div>
@@ -31,10 +35,10 @@
                     <!-- <button type="button" data-toggle="modal" data-target="#myModal" (click)="openModal(activity)"> -->
                     <div class="container" style="background-color: #89CFF0;">
                         <h4><b>{{activity.client}}</b></h4>
-                        <p>{{activity.description}}</p>
-                        <div *ngFor="let task of activity.tasks">
+                        <p>Description: {{activity.description}}</p>
+                        <div *ngFor="let task of activity.tasks; let i = index">
                             <i class="glyphicon glyphicon-home"></i>
-                            <p>{{task.description}}</p>
+                            <p>Task {{i + 1}}: {{task.description}}</p>
                         </div>
                     </div>
                     <!-- </button> -->
