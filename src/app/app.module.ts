@@ -12,15 +12,13 @@ import { AppComponent } from './app.component';
 import { SideMenuBarComponent } from './layout/side-menu-bar.component';
 import { ActivityComponent } from './pages/activity/activity.component';
 import { SpinnerComponent } from './shared/spinner/spinner.component';
-import { ActivityDetailComponent } from './pages/activity-detail/activity-detail.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     SideMenuBarComponent,
     ActivityComponent,
-    SpinnerComponent,
-    ActivityDetailComponent
+    SpinnerComponent
   ],
   imports: [
     BrowserModule,

@@ -27,7 +27,7 @@ export class InnosysApiService {
   }
 
   exportActivityScript() : Observable<any> {
-    const activityById = `${this.baseUri}/activity/{id}`;
-    return this.http.get(activityById);
+    const activityExport = `${this.baseUri}/activity/export`;
+    return this.http.get(activityExport);
   }
 }

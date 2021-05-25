@@ -39,8 +39,11 @@ export class ActivityComponent implements OnInit {
     this.selectedActvitity = activity;
   }
 
+  exportActivityScript() {
+    window.open("https://localhost:44324/api/activity/export")
+  }
+
   uploadActivityCsv() {
 
   }
-
 }
